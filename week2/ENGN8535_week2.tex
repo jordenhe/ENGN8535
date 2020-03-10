@@ -1,0 +1,161 @@
+\documentclass{article}
+
+% add preamable: packages
+\usepackage{amsmath} % remove the equation numbering
+\usepackage{amssymb} %maths
+\usepackage{graphicx}
+
+\title{Week 2 Reading Notes}
+\date{2020-03-05}
+\author{Hongjian He}
+
+\begin{document}
+  \pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{arabic}
+
+\section{Linear Algebra}
+
+We are considering the matrix multiplication: an associative operation on M. Then distributive
+law and associative law holds.
+
+\subsection{Norms}
+
+The Euclidean ($l_2$) or in general, $l_n$ norm:
+
+$$
+||x||_2 = (\sum_{i=1}^n x_i^n)^{\frac{1}{n}}
+$$
+
+And Frobenius Norm for matrix:
+
+$$
+||A||_F = \sqrt{\sum_{i=1}^m\sum_{j=1}^n A_{ij}^2} =\sqrt{tr(A^TA)}
+$$
+
+\subsection{Linear Independence}
+
+Two vectors in $\mathbb{R}^n$ is orthogonal if there inner product is 0. A vector is normalised 
+if its $l_2$ norm is 1. A square matrix is orthogonal if all its column vectors are pair-wise 
+orthogonal and are normalised.
+
+Rank theorem:
+
+$$
+R(A^T)\cap N(A)=\emptyset
+$$
+
+and
+
+$$
+Span\{(A^T),N(A)\}=\mathbb{R}^n
+$$
+
+\subsection{Quadratic form}
+
+The map $x^TAx$ from $\mathbb{R}^n \times \mathbb{R}^n$ to $\mathbb{R}$ is called quadratic form.
+
+So A is called positive definite if its quadratic form is greater than 0 and A is symmetric.
+
+
+
+\section{Probability Theory}
+
+\subsection{foundations of probability}
+
+There are 3 components of a probability theory
+
+\begin{enumerate}
+\item Sample space $\Omega$
+\item $\sigma$ algebra $\mathbb{F}$ on $\Omega$ to form a measurable space $(\Omega,\mathbb{F})$
+\item A mapping $P: \mathbb{F}\to\mathbb{R}$ such that:
+	\begin{enumerate}
+	\item $(\forall A\in\mathbb{F})P(A)\ge 0$
+	\item $P(\Omega)=1$
+	\item $P(\cup_{k_1}^\infty A_k)=\sum_{k=1}^\infty P(A_k)$ if the family of subsets of $\mathbb{F}$ are mutually disjoint
+	\end{enumerate}
+
+\end{enumerate}
+
+The consequences of these are well-understood relationship between set operation and 
+real field.
+
+Define the conditional probability of event A given B:
+
+$$
+P(A|B) = \frac{P(A\cap B)}{P(B)} 
+$$
+
+, and because of commutativeness of intersection, we have Bayes' Rule.
+The intuition is based on the fact that what is the proportion of "amount of measure" 
+of A restricted to B.
+
+
+The linear independence is defined by $A\bot B$ if $P(A\cap B)=P(A)P(B)$
+
+\subsection{Random Variables}
+
+\textbf{Definition}: A random variable is a function from an event space $(\Omega,\mathbb{F})$
+to another event space $(\Omega^\prime,\mathbb{F}^\prime)$ such that for every member
+in $\mathbb{F}^\prime$, its inverse image under the function is a member in $\mathbb{F}$
+
+The discrete/continuous random variable is then defined by their cumulative distribution
+function $F_X: \mathbb{R}\to[0,1]: F_X(x)=P(X\le x)$, by generating sets of Borel sets.
+
+If the CDF is differentiable, then it has PDF; otherwise it has PMF.
+
+\subsection{Summary Statistics}
+
+\textbf{Definition}: Expectation for a random variable $X$ under a function
+$g:\mathbb{R}\to \mathbb{R}$
+ is a "weighted average" of 
+it with respect to its distribution:
+
+$$
+E[g(X)] = \sum_{x\in Val(X)} g(x)p_X(x)
+$$
+
+or
+
+
+$$
+E[g(X)] = \int_{-\infty}^\infty g(x)p_X(x)
+$$
+
+\textbf{Definition}: Variance of a random variable X is:
+
+$$
+Var[X] = E[(X-E[X])^2]=E[X^2]-E[X]^2
+$$
+
+
+For two variable case, the expectation is defined in the obvious way:
+
+$$
+E[g(X,Y)] = \sum_{x\in Var(X),y\in Val(Y)}g(x,y)p_{XY}(x,y)
+$$
+
+$$
+E[g(X,Y)] = \int_{-\infty}^\infty\int_{-\infty}^\infty g(x,y)p_{XY}(x,y)dxdy
+$$
+
+And define the covariance is 
+
+$$
+Cov[X,Y] = E[(X-E[X])(Y-E[Y])] = E[XY]-E[X]E[Y]
+$$
+
+Now we can define the random vector in the usual way. And the covariance matrix is:
+
+$$
+\Sigma = E[XX^T]-E[X]E[X]^T= E[(X-E[X])(X-E[X])^T]
+$$
+
+i.e. the pair-wise covariance of all $x_i$.
+
+
+
+
+
+\end{document}
