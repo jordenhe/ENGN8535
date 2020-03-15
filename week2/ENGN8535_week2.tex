@@ -155,6 +155,95 @@ $$
 i.e. the pair-wise covariance of all $x_i$.
 
 
+\section{Ranking and Recommendation}
+
+\subsection{Google search system}
+It makes a lot of money by performing the first hyperlink analysis and create
+the content-based search engines.
+
+The idea is to assigning a score to billions of web pages.
+
+\subsubsection{Problem definition}
+
+Given a directed graph, which are the most important nodes?
+
+It is equivalant to given a random walker on the nodes, what are the 
+steady-state probabilities of each node.
+
+Markov chain model describes it as Eigenvalue problem of the transition
+probability matrix, plus some random jump.
+
+
+Consider the recursive definition of rank of a page P:
+
+$$
+r(P) = \sum_{Q\in B_P} \frac{r(Q)}{|Q|}
+$$
+
+,where $B_P$ is the set of all "parent" pages that links to $P$,
+and $|Q|$ is the number of links from page $Q$ to all other pages. The idea 
+is that the importance of parent infers the importance of children, up 
+to some proportion.
+
+Now if we allow enumeration of all such pages, and an updating method on rank:
+
+$$
+r_k (P_i) =  \sum_{Q\in B_{P_i}} \frac{r_{k-1}(Q)}{|Q|}
+$$
+
+, where k is the updating step, and i is the index of page.
+
+Now the page rank vector is simply a vector of rank of pages:
+
+$$
+v_k = [r_k(P_1),r_k(P_2),...,r_k(P_n)]^T
+$$
+
+and the transition from k-1 to k is:
+
+$$
+v_k = Hv_{k-1}
+$$
+
+,where $H_{ij}=\frac{1}{|P_i|}$ if $P_i$ links to $P_j$ and 0 otherwise.
+
+Iterating this update equation is called power method. So the PageRank
+vector is $lim_{k\to\infty}v_k$
+
+The Google Matrix:
+
+$$
+G = \alpha S+ (1-\alpha)ue^T
+$$
+,where $\alpha\in (0,1)$, $S=H+au^T$ (row stochastic),
+the term $eu^T$ is to add a small constant to every entry of S.
+
+So now the power method is:
+
+$$
+v_k= Gv_{k-1}= \alpha S v_{k-1} + (1-\alpha)u
+$$
+, because v is stochastic.
+
+Now the power method converges at the same rate as $\alpha^k \to 0$
+
+\subsection{Product Recommendation systems}
+
+Insight: Personal Preferences are correlated
+
+\subsubsection{Problem Formulation}
+
+Given: 
+
+\begin{itemize}
+\item Users $u\in \{1,...,U\}$
+\item Items $i\in\{1,...,M\}$
+\item Training set with observed, real-valued preferences for some user-item pair (u,i)
+\end{itemize}
+
+Goal: Predict unobserved preferences
+
+Methodology: assume a distribution and update the parameters. Dimensionality reduction
 
 
 
