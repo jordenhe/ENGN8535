@@ -1,0 +1,114 @@
+\documentclass{article}
+
+% add preamable: packages
+\usepackage{amsmath} % remove the equation numbering
+\usepackage{amssymb} %maths
+\usepackage{graphicx}
+
+\title{Week 2 Reading Notes}
+\date{2020-03-16}
+\author{Hongjian He}
+
+\begin{document}
+  \pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{arabic}
+
+\section{Dimensionality Reduction}
+
+Motivation: 
+
+\begin{itemize}
+\item High-dimensional Data is strange. 
+\item Lots of real-world data is HD
+\item inference
+\item computational efficiency
+\end{itemize}
+
+Types of Structure in high-dim:
+
+\begin{itemize}
+\item clustering
+\begin{itemize}
+\item High-dimensional Data is strange. 
+\end{itemize}
+\item Linear
+\begin{itemize}
+\item High-dimensional Data is strange. 
+\end{itemize}
+\end{itemize}
+
+\subsection{Linear structure}
+
+Data distribution lives in a low dimensional linear subspace or affine space.
+
+For example, in face recognition, input window of 19x19 has dim 361. To reduce
+its dimension to $\mathbb{R}^10$. By assumption, the data is projected in $z=Ux\in\mathbb{R}^10$
+
+\subsubsection{PCA}
+
+Principal Component Analysis: use orthogonal transformation to convert 
+a set of correlated variables into a set of linearly un-correlated variables,
+such that the redundant information is removed.
+
+Projection is a parametric function of the data such that dimensionality is reduced.
+Projection to line reduces the dim to 1.
+
+Objective 1: maximize the variance of projected data $X_{d\times n}=(x_1,x_2,...,x_n)$: $max()$.
+
+Objective 2: minimize the reconstruction error: $min_{u} \sum_{i=1}^n ||x_i-uu^Tx_i||^2$
+
+Thus, we can extend to first-r principal components: $z=U^Tx$, where $U\in \mathbb{R}^{d\times r}$
+
+r can be found by analysing intrinsic dimension energy of data
+
+
+Thus, the implementation is:
+
+\begin{enumerate}
+
+\item compute linear space by subtracting the mean (affine space)
+\item compute covariance matrix
+\item compute eigen vectors
+\item construct the dimensionality reduction by projection, configured by eigen-vectors projection. The new coordinate is the reduced data (feature vector)
+\end{enumerate}
+
+Applications:
+\begin{enumerate}
+\item In face recognition, the eigenvectors are called eigenfaces in PCA.
+\item JPEG compression of image: divide the image into patches and analyze the pattern based on PCA. Since Fourier analysis is the universal compression scheme for general images, it is projected onto Fourier basis.
+\end{enumerate}
+
+Strength and Weakness:
+\begin{enumerate}
+\item No tuning parameters
+\item Non-iterative (practically iterative to compute eigen-decompsition)
+\item Global optima 
+\item limited to second order statistics
+\item limited to linear projection
+\end{enumerate}
+
+\subsubsection{LDA: Linear Discriminant Analysis}
+
+
+PCA versus LDA
+\begin{itemize}
+\item unsupervised v/s supervised
+\item generative model v/s discriminative model
+
+\end{itemize}
+
+
+Motivations:
+\begin{enumerate}
+\item extend to classification of data point
+\item want projection to maximize overal interclass variance relative to minimize the intraclass variance
+\item consider the maximise the ratio 
+\end{enumerate}
+
+
+
+
+
+\end{document}
